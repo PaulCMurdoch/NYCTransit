@@ -1,0 +1,23 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table STATION {
+  STATION_ID int [pk]
+  station_name varchar
+  latitude numeric
+  longitude numeric
+}
+
+Table RIDERSHIP {
+  YEAR numeric
+  MONTH numeric
+  DAY_OF_WEEK numeric
+  Hour numeric
+  origin_station_id int [ref: > STATION.STATION_ID]
+  destination_station_id int [ref: > STATION.STATION_ID]
+  est_avg_ridership numeric
+
+  indexes {
+    (YEAR,MONTH,DAY_OF_WEEK,Hour,origin_station_id,destination_station_id) [pk]
+  }
+}
