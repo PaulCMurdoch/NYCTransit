@@ -1,32 +1,11 @@
-import requests
+from extract import extract
+from transform import transform
+from load import load_station, load_ridership
 
-url = "https://data.ny.gov/resource/28vm-gjqr.json?"
+for row in extract():
+    station, ridership = transform(row)
 
-def extract(batch_size=5):
-    params = {
-        "$limit": batch_size,
-        "$offset": 0,
-        "$order": "timestamp DESC, origin_station_complex_id, destination_station_complex_id" }
+    load_station(cursor, station)
+    load_ridership(cursor, ridership)
 
-    response = requests.get(url, params=params)
-    data = response.json()
-
-    while data:
-        params["$offset"] += params["$limit"]
-        response = requests.get(url, params=params)
-        data = response.json()
-        
-def incremental_load(last_timestamp, batch_size=5):
-    params = {
-        "$limit": batch_size,
-        "$offset": 0,
-        "$order": "timestamp DESC, origin_station_complex_id, destination_station_complex_id",
-        "$where": f"timestamp > '{last_timestamp}'" }
-
-    response = requests.get(url, params=params)
-    data = response.json()
-
-    while data:
-        params["$offset"] += params["$limit"]
-        response = requests.get(url, params=params)
-        data = response.json()
+conn.commit()
