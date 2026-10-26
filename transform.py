@@ -9,14 +9,14 @@ def transform(rows):
 
         stations[origin_id] = {
             "station_complex_id": origin_id,
-            "station_name": row["origin_station_name"],
+            "station_name": row["origin_station_complex_name"],
             "station_latitude": float(row["origin_latitude"]),
             "station_longitude": float(row["origin_longitude"])
         }
 
         stations[destination_id] = {
             "station_complex_id": destination_id,
-            "station_name": row["destination_station_name"],
+            "station_name": row["destination_station_complex_name"],
             "station_latitude": float(row["destination_latitude"]),
             "station_longitude": float(row["destination_longitude"])
         }
