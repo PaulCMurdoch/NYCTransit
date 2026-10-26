@@ -1,0 +1,13 @@
+# SQLite
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.env
