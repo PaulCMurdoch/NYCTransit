@@ -7,12 +7,12 @@ from load import load_station, load_ridership
 conn = sqlite3.connect("data/omny.db")
 cursor = conn.cursor()
 
-BATCH_SIZE = 50000
-
 for batch in extract(
-    batch_size=BATCH_SIZE,
+    batch_size=50_000,
     limit=500_000,
-    oldest_timestamp="2026-08-01T00:00:00.000"
+    oldest_timestamp=None,
+    station_count=30,
+    timeout=30
 ):
     print(f"Processing batch of {len(batch)} rows")
 
