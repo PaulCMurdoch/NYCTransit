@@ -10,7 +10,8 @@ def extract(batch_size=50000, limit=0, oldest_timestamp=None,station_count=10,ti
         "$limit": batch_size,
         "$offset": 0,
         "$order": "timestamp DESC, origin_station_complex_id, destination_station_complex_id",
-        f"$where": f"origin_station_complex_id < {station_count} and destination_station_complex_id < {station_count}"
+        # Restrict dataset during development/testing
+        "$where": f"origin_station_complex_id < {station_count} and destination_station_complex_id < {station_count}"
     }
     
     if oldest_timestamp:
