@@ -7,37 +7,25 @@ from load import load_station, load_ridership
 conn = sqlite3.connect("data/omny.db")
 cursor = conn.cursor()
 
-batch = []
 BATCH_SIZE = 50000
 
-for row in extract(
+for batch in extract(
     batch_size=BATCH_SIZE,
-    limit=200000,
+    limit=1000000,
     oldest_timestamp="2026-08-01T00:00:00.000"
 ):
-    batch.append(row)
+    print(f"Processing batch of {len(batch)} rows")
 
-    if len(batch) >= BATCH_SIZE:
-        print(f"Processing batch of {len(batch)} rows")
+    station, ridership = transform(batch)
 
-        for batch_row in batch:
-            station, ridership = transform(batch_row)
-            load_station(cursor, station)
-            load_ridership(cursor, ridership)
+    load_station(cursor, station)
+    load_ridership(cursor, ridership)
 
+    try:
         conn.commit()
-        batch = []
-
-# Process remaining rows
-if batch:
-    print(f"Processing final batch of {len(batch)} rows")
-
-    for batch_row in batch:
-        station, ridership = transform(batch_row)
-        load_station(cursor, station)
-        load_ridership(cursor, ridership)
-
-    conn.commit()
+    except sqlite3.Error as e:
+        conn.rollback()
+        print(f"Error committing transaction: {e}")
 
 conn.close()
 
