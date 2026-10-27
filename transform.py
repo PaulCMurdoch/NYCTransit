@@ -8,17 +8,17 @@ def transform(rows):
         destination_id = int(row["destination_station_complex_id"])
 
         stations[origin_id] = {
-            "station_complex_id": origin_id,
+            "station_id": origin_id,
             "station_name": row["origin_station_complex_name"],
-            "station_latitude": float(row["origin_latitude"]),
-            "station_longitude": float(row["origin_longitude"])
+            "latitude": float(row["origin_latitude"]),
+            "longitude": float(row["origin_longitude"])
         }
 
         stations[destination_id] = {
-            "station_complex_id": destination_id,
+            "station_id": destination_id,
             "station_name": row["destination_station_complex_name"],
-            "station_latitude": float(row["destination_latitude"]),
-            "station_longitude": float(row["destination_longitude"])
+            "latitude": float(row["destination_latitude"]),
+            "longitude": float(row["destination_longitude"])
         }
 
         # Ridership Table
@@ -27,9 +27,12 @@ def transform(rows):
             "month": int(row["month"]),
             "day_of_week": row["day_of_week"],
             "hour_of_day": int(row["hour_of_day"]),
-            "origin_station_complex_id": origin_id,
-            "destination_station_complex_id": destination_id,
-            "estimated_average_ridership": float(row["estimated_average_ridership"])
+            "origin_station_id": origin_id,
+            "destination_station_id": destination_id,
+            "est_avg_ridership": float(row["estimated_average_ridership"])
         })
-
+    print(f"Transformed {len(stations)} stations and {len(ridership)} ridership records")
+    print(list(stations.values()))
+    print(100*"-")
+    print(ridership)
     return list(stations.values()), ridership

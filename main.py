@@ -9,9 +9,9 @@ cursor = conn.cursor()
 
 for row in extract():
     station, ridership = transform(row)
-
     load_station(cursor, station)
     load_ridership(cursor, ridership)
 
 conn.commit()
 conn.close()
+print("ETL process completed successfully.")
