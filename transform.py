@@ -1,4 +1,7 @@
 def transform(rows):
+    """ Transforms the extracted data into two separate structures: one for stations and one for ridership.
+    Args:
+        rows (list): A list of dictionaries containing the extracted data."""
     stations = {}
     ridership = []
 

@@ -3,6 +3,9 @@ import requests
 URL = "https://data.ny.gov/resource/28vm-gjqr.json"
 
 def extract(batch_size=50000, limit=0, oldest_timestamp=None,station_count=10,timeout=30):
+    """
+    Extracts data from the NYC Open Data API in batches.
+    """
     params = {
         "$limit": batch_size,
         "$offset": 0,

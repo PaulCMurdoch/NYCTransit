@@ -1,6 +1,10 @@
 import sqlite3
 
 def load_station(cursor, stations):
+    """ Loads station data into the STATION table in the SQLite database.
+    Args:
+        cursor (sqlite3.Cursor): The SQLite cursor object.
+        stations (list): A list of dictionaries containing station data."""
     for station in stations:
         try:
             cursor.execute(
@@ -25,6 +29,10 @@ def load_station(cursor, stations):
             print(f"Error loading station data: {e}")
 
 def load_ridership(cursor, riderships):
+    """ Loads ridership data into the RIDERSHIP table in the SQLite database.
+    Args:
+        cursor (sqlite3.Cursor): The SQLite cursor object.
+        riderships (list): A list of dictionaries containing ridership data."""
     for ridership in riderships:
         try:
             cursor.execute(
