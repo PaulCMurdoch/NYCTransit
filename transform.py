@@ -31,8 +31,4 @@ def transform(rows):
             "destination_station_id": destination_id,
             "est_avg_ridership": float(row["estimated_average_ridership"])
         })
-    print(f"Transformed {len(stations)} stations and {len(ridership)} ridership records")
-    print(list(stations.values()))
-    print(100*"-")
-    print(ridership)
     return list(stations.values()), ridership
