@@ -11,7 +11,7 @@ BATCH_SIZE = 50000
 
 for batch in extract(
     batch_size=BATCH_SIZE,
-    limit=1000000,
+    limit=500_000,
     oldest_timestamp="2026-08-01T00:00:00.000"
 ):
     print(f"Processing batch of {len(batch)} rows")
